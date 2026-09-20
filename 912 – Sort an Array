@@ -1,0 +1,62 @@
+class Solution {
+
+
+    static void mergesort(int [] nums, int start, int mid, int end){
+        
+        int [] temp = new int[(end - start) + 1];
+
+        int i = start;
+        int j = mid + 1;
+        int point = 0;
+
+        while(i <= mid && j <= end){
+            if(nums[i] <= nums[j]){
+                temp[point] = nums[i];
+                i++;
+            }else{
+                temp[point] = nums[j];
+                j++;
+            }
+            point++;
+        }
+
+        while(i <= mid){
+            temp[point] = nums[i];
+                i++;
+                point++;
+        }
+
+        while(j <= end){
+            temp[point] = nums[j];
+                j++;
+                point++;
+        }
+
+
+        for(int y = 0; y<temp.length; y++){
+            nums[y+start] = temp[y];
+        }
+    }
+
+    static void merge(int [] nums, int start, int end){
+
+        if(start == end) return;
+
+        int mid = start + ((end-start) / 2);
+
+        merge(nums, start, mid);
+        merge(nums, mid + 1, end);
+
+        mergesort(nums, start, mid, end);
+
+
+    }
+    public int[] sortArray(int[] nums) {
+    
+    
+        merge(nums, 0, nums.length - 1);
+
+        return nums;
+        
+    }
+}
